@@ -41,7 +41,7 @@ module.exports = {
 		userWallet = JSON.parse(fs.readFileSync('./cache/users/' + walletID + '.json'))
 		tax = Math.ceil(Number(userWallet.Balance) * .10)
 		availableBalance = Number(userWallet.Balance) - tax
-		interaction.reply({ content: '# [BANKER COMMAND] BALANCE\n'+userWallet.DiscordUsername+'\'s current balance is ' + userWallet.Balance + ' gil.\nThey can withdraw ' + availableBalance + ' gil.', ephemeral: false });
+		interaction.reply({ content: '# [BANKER COMMAND]\n## BALANCE\n'+userWallet.DiscordUsername+'\'s current balance is ' + userWallet.Balance + ' gil.\nThey can withdraw ' + availableBalance + ' gil.', ephemeral: false });
 		console.log('[' + DiscordUsername + '#' + DiscordID + '] [BANKER COMMAND] BALANCE - 200: Balance returned.')
 	}
 };

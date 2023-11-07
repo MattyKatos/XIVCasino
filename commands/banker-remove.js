@@ -52,8 +52,8 @@ module.exports = {
 		//Update balance
 		newBalance = Number(userWallet.Balance) - gil
 		newUserWallet = '{"DiscordID":"' + userWallet.DiscordID + '","DiscordUsername":"' + userWallet.DiscordUsername + '","Balance":'+newBalance+'}'
-		fs.writeFileSync('./cache/users/' + DiscordID + '.json', newUserWallet)
-		interaction.reply({ content: '# [BANKER COMMAND - MANUAL] REMOVE\n'+gil+' gil has been removed from '+userWallet.DiscordUsername+'\'s wallet by '+DiscordUsername+'.\nWallet ID: '+userWallet.DiscordID, ephemeral: false });
+		fs.writeFileSync('./cache/users/' + walletID + '.json', newUserWallet)
+		interaction.reply({ content: '# [BANKER COMMAND - MANUAL]\n## REMOVE\n'+gil+' gil has been removed from '+userWallet.DiscordUsername+'\'s wallet by '+DiscordUsername+'.\nWallet ID: '+userWallet.DiscordID, ephemeral: false });
 		console.log('[' + DiscordUsername + '#' + DiscordID + '] [BANKER COMMAND - MANUAL] REMOVE - 200: Balance adjusted.')
 	},
 };

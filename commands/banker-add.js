@@ -45,8 +45,8 @@ module.exports = {
 		userWallet = JSON.parse(fs.readFileSync('./cache/users/' + walletID + '.json'))
 		newBalance = Number(userWallet.Balance) + gil
 		newUserWallet = '{"DiscordID":"' + userWallet.DiscordID + '","DiscordUsername":"' + userWallet.DiscordUsername + '","Balance":'+newBalance+'}'
-		fs.writeFileSync('./cache/users/' + DiscordID + '.json', newUserWallet)
-		interaction.reply({ content: '# [BANKER COMMAND - MANUAL] ADD\n'+gil+' gil has been added to '+userWallet.DiscordUsername+'\'s wallet by '+DiscordUsername+'.\nWallet ID: '+userWallet.DiscordID, ephemeral: false });
+		fs.writeFileSync('./cache/users/' + walletID + '.json', newUserWallet)
+		interaction.reply({ content: '# [BANKER COMMAND - MANUAL]\n## ADD\n'+gil+' gil has been added to '+userWallet.DiscordUsername+'\'s wallet by '+DiscordUsername+'.\nWallet ID: '+userWallet.DiscordID, ephemeral: false });
 		console.log('[' + DiscordUsername + '#' + DiscordID + '] [BANKER COMMAND - MANUAL] ADD - 200: Balance adjusted.')
 	},
 };
