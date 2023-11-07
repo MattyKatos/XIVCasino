@@ -4,13 +4,12 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('balance')
+		.setName('wallet')
 		.setDescription('Check the balance of your casino wallet.'),
 
 	async execute(interaction) {
 		const DiscordID = interaction.user.id
 		const DiscordUsername = interaction.user.username
-		const userData = '{"DiscordID":"' + DiscordID + '","DiscordUsername":"' + DiscordUsername + '","Balance":"0"}'
 
 		//Check to see if user exists
 		try {
@@ -18,15 +17,17 @@ module.exports = {
 		}
 		catch (e) {
 			interaction.reply({ content: 'Wallet not found!', ephemeral: true });
-			console.log('[' + DiscordUsername + '#' + DiscordID + '] BALANCE - 401: User does not have a wallet.')
+			console.log('[' + DiscordUsername + '#' + DiscordID + '] WALLET - 401: User does not have a wallet.')
 			return
 		}
 
 		//Return balance
 		userWallet = JSON.parse(fs.readFileSync('./cache/users/' + DiscordID + '.json'))
+		tax = Math.ceil(Number(userWallet.Balance) * .10)
+		availableBalance = Number(userWallet.Balance) - tax
 		{
-			interaction.reply({ content: 'Your current balance is ' + userWallet.Balance + ' gil.', ephemeral: true });
-			console.log('[' + DiscordUsername + '#' + DiscordID + '] BALANCE - 200: Balance returned.')
+			interaction.reply({ content: 'Your current balance is ' + userWallet.Balance + ' gil.\nYou can withdraw '+availableBalance+' gil.', ephemeral: true });
+			console.log('[' + DiscordUsername + '#' + DiscordID + '] WALLET - 200: Balance returned.')
 		}
 	},
 };

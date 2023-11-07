@@ -4,16 +4,12 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('addbalance')
-		.setDescription('Add gil to a player wallet.')
+		.setName('bankerbalance')
+		.setDescription('[BANKER] Check the balance of another wallet.')
 		.addStringOption(option =>
 			option.setName('userid')
-			.setDescription('ID of User wallet to modify.')
-			.setRequired(true))
-		.addStringOption(option =>
-			option.setName('gil')
-			.setDescription('amount of gil to add.')
-			.setRequired(true)),
+				.setDescription('ID of User wallet to check.')
+				.setRequired(true)),
 
 	async execute(interaction) {
 		const DiscordID = interaction.user.id
@@ -27,7 +23,7 @@ module.exports = {
 		}
 		catch (e) {
 			interaction.reply({ content: 'Only bankers can use this command.', ephemeral: true });
-			console.log('[' + DiscordUsername + '#' + DiscordID + '] ADDBALANCE - 401: User is not a banker.')
+			console.log('[' + DiscordUsername + '#' + DiscordID + '] [BANKER COMMAND] BALANCE - 401: User is not a banker.')
 			return
 		}
 
@@ -37,16 +33,15 @@ module.exports = {
 		}
 		catch (e) {
 			interaction.reply({ content: 'Unable to find target wallet.', ephemeral: true });
-			console.log('[' + DiscordUsername + '#' + DiscordID + '] ADDBALANCE - 404: User wallet not found.')
+			console.log('[' + DiscordUsername + '#' + DiscordID + '] [BANKER COMMAND] BALANCE - 404: User wallet not found.')
 			return
 		}
 
-		//Update balance
+		//Return balance
 		userWallet = JSON.parse(fs.readFileSync('./cache/users/' + walletID + '.json'))
-		newBalance = Number(userWallet.Balance) + gil
-		newUserWallet = '{"DiscordID":"' + userWallet.DiscordID + '","DiscordUsername":"' + userWallet.DiscordUsername + '","Balance":'+newBalance+'}'
-		fs.writeFileSync('./cache/users/' + DiscordID + '.json', newUserWallet)
-		interaction.reply({ content: 'Balance Updated!', ephemeral: true });
-		console.log('[' + DiscordUsername + '#' + DiscordID + '] ADDBALANCE - 200: Balance adjusted.')
-	},
+		tax = Math.ceil(Number(userWallet.Balance) * .10)
+		availableBalance = Number(userWallet.Balance) - tax
+		interaction.reply({ content: '# [BANKER COMMAND] BALANCE\n'+userWallet.DiscordUsername+'\'s current balance is ' + userWallet.Balance + ' gil.\nThey can withdraw ' + availableBalance + ' gil.', ephemeral: false });
+		console.log('[' + DiscordUsername + '#' + DiscordID + '] [BANKER COMMAND] BALANCE - 200: Balance returned.')
+	}
 };
