@@ -4,7 +4,7 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('walletwithdraw')
+		.setName('wallet-withdraw')
 		.setDescription('Create a withdraw request.')
 		.addStringOption(option =>
 			option.setName('gil')

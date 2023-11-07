@@ -4,7 +4,7 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('bankeradd')
+		.setName('banker-add')
 		.setDescription('[BANKER] Add gil to a player wallet.')
 		.addStringOption(option =>
 			option.setName('userid')

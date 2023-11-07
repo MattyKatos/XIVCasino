@@ -4,7 +4,7 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('bankerremove')
+		.setName('banker-remove')
 		.setDescription('[BANKER] Remove gil from a player wallet.')
 		.addStringOption(option =>
 			option.setName('userid')

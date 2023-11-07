@@ -4,7 +4,7 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('bankerbalance')
+		.setName('banker-balance')
 		.setDescription('[BANKER] Check the balance of another wallet.')
 		.addStringOption(option =>
 			option.setName('userid')

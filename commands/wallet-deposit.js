@@ -4,7 +4,7 @@ const fs = require('node:fs');
 module.exports = {
 
 	data: new SlashCommandBuilder()
-		.setName('walletdeposit')
+		.setName('wallet-deposit')
 		.setDescription('Create a deposit request.')
 		.addStringOption(option =>
 			option.setName('gil')
